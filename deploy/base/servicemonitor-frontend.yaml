@@ -3,7 +3,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: frontend
-  namespace: mld
+  namespace: prepare
   labels:
     release: kube-prometheus-stack
 spec:
@@ -17,4 +17,4 @@ spec:
       scrapeTimeout: 10s
   namespaceSelector:
     matchNames:
-      - mld
+      - prepare

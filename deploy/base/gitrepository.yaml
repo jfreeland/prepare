@@ -6,7 +6,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: jf-helm
-  namespace: mld
+  namespace: prepare
 spec:
   interval: 1m0s
   url: https://github.com/jfreeland/helm
