@@ -1,0 +1,51 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: backend
+  namespace: prepare
+spec:
+  interval: 1m0s
+  chart:
+    spec:
+      chart: ./charts/generic
+      sourceRef:
+        kind: GitRepository
+        name: jf-helm
+      interval: 1m0s
+  values:
+    fullnameOverride: backend
+    replicaCount: 2
+    image:
+      repository: joeyfreeland/prepare-be
+      pullPolicy: Always
+      tag: 1.10.2
+    imagePullSecrets:
+      - name: dockerhub
+    serviceAccount:
+      create: true
+    podAnnotations: {}
+    service:
+      type: ClusterIP
+      port: 8000
+    env:
+      - name: PORT
+        value: "8000"
+      - name: DD_AGENT_HOST
+        valueFrom:
+          fieldRef:
+            fieldPath: status.hostIP
+      - name: DD_DOGSTATSD_PORT
+        value: "8125"
+    livenessProbe:
+      httpGet:
+        path: /api/health
+    readinessProbe:
+      httpGet:
+        path: /api/health
+    resources:
+      requests:
+        cpu: 100m
+        memory: 50Mi
+    autoscaling:
+      enabled: true

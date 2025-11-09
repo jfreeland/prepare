@@ -1,0 +1,56 @@
+---
+repos:
+  # Standard file formatting / hygiene
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    # See: https://github.com/pre-commit/pre-commit-hooks/releases
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: |
+          (?x)^(
+              ^.*/terraform.tfstate$|
+              ^.*/terraform.tfstate.*.backup$|
+          )$
+      - id: end-of-file-fixer
+        exclude: |
+          (?x)^(
+              ^.*/terraform.tfstate$|
+              ^.*/terraform.tfstate.*.backup$|
+          )$
+      - id: check-yaml
+        args:
+          - --allow-multiple-documents
+      # The json format/linter/fixer does not like:
+      - id: check-json
+      - id: pretty-format-json
+        args:
+          - --autofix
+          # Note: this hook does not honor the .editorconfig value so
+          #   they need to be kept in sync manually
+          - --indent=4
+          # Do not convert extended unicode characters to escape sequences. This preserves human-readable characters.
+          # e.g. 🤖 -> \ud83e\udd16
+          - --no-ensure-ascii
+
+  # Call out any markdown issues w/ the rendered docs
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.45.0
+    hooks:
+      - id: markdownlint
+        args:
+          # Automatically fix what can be fixed (usually formatting/whitespace issues)
+          - --fix
+
+  # Python formatting and linting
+  - repo: https://github.com/psf/black
+    rev: 24.10.0
+    hooks:
+      - id: black
+        language_version: python3.12
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.0
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format

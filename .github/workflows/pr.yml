@@ -1,0 +1,50 @@
+name: pr
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: install uv
+        run: |
+          pip install uv
+
+      - name: test backend
+        run: |
+          cd backend
+          uv sync
+          uv run python -m pytest
+
+      - name: test frontend
+        run: |
+          cd frontend
+          npm ci
+          npm run test
+
+      - name: lint frontend
+        run: |
+          cd frontend
+          npm run lint
+
+      - name: typecheck frontend
+        run: |
+          cd frontend
+          npm run typecheck

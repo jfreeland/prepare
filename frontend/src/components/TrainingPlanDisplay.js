@@ -43,8 +43,8 @@ const TrainingPlanDisplay = ({ plan, formData, onEdit }) => {
   const formatDate = (date) => {
     if (!date) return 'Invalid date';
     try {
-      const formatted = date.toLocaleDateString('en-US', { 
-        month: 'short', 
+      const formatted = date.toLocaleDateString('en-US', {
+        month: 'short',
         day: 'numeric',
         year: 'numeric'
       });
@@ -201,23 +201,20 @@ END:VEVENT
         if (workout.type === 'Rest') continue;
 
         const eventDate = parseLocalDate(workout.date);
-        const startDate = new Date(eventDate);
-        startDate.setHours(9, 0, 0, 0);
-
-        const endDate = new Date(startDate);
-        endDate.setHours(10, 0, 0, 0);
+        const eventDateString = eventDate.toISOString().split('T')[0];
+        const nextDay = new Date(eventDate);
+        nextDay.setDate(nextDay.getDate() + 1);
+        const nextDayString = nextDay.toISOString().split('T')[0];
 
         const event = {
           summary: `${workout.type}${workout.distance ? ` - ${workout.distance} miles` : ''}`,
           description: workout.description,
           location: 'Your preferred running location',
           start: {
-            dateTime: startDate.toISOString(),
-            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+            date: eventDateString
           },
           end: {
-            dateTime: endDate.toISOString(),
-            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+            date: nextDayString
           },
           extendedProperties: {
             private: {
@@ -360,13 +357,13 @@ END:VEVENT
         </div>
          <div className="plan-actions">
            <div className="view-toggle">
-             <button 
+             <button
                className={`toggle-button ${viewMode === 'list' ? 'active' : ''}`}
                onClick={() => setViewMode('list')}
              >
                List View
              </button>
-             <button 
+             <button
                className={`toggle-button ${viewMode === 'calendar' ? 'active' : ''}`}
                onClick={() => setViewMode('calendar')}
              >
@@ -406,7 +403,7 @@ END:VEVENT
                     Total: {getTotalWeeklyDistance(week).toFixed(1)} miles
                   </span>
                 </div>
-                
+
                 <div className="workouts-grid">
                   {week.workouts.map((workout) => (
                     <div

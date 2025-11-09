@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: prepare
+resources:
+  - 1password.yaml
+  - gitrepository.yaml
+  - helmrelease-frontend.yaml
+  - helmrelease-backend.yaml
+  - helmrelease-ingress.yaml
+  - helmrelease-api-ingress.yaml
+  #- servicemonitor-backend.yaml
+  #- servicemonitor-frontend.yaml
