@@ -411,7 +411,10 @@ app = FastAPI(title="Training Plan API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://planner.run"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://prepare.run",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
