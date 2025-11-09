@@ -10,8 +10,9 @@ function App() {
   const handleFormSubmit = async (submittedFormData) => {
     try {
       // Use environment variable with fallback
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8000/api/generate-plan';
-      
+      const apiBaseUrl = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+      const apiUrl = `${apiBaseUrl}/api/generate-plan`;
+
       // Convert camelCase to snake_case for backend
       const backendFormData = {
         race_type: submittedFormData.raceType,
@@ -20,12 +21,12 @@ function App() {
         long_run_day: submittedFormData.longRunDay,
         training_days: submittedFormData.trainingDays
       };
-      
+
       console.log('API URL from env:', process.env.REACT_APP_API_URL);
       console.log('Using API URL:', apiUrl);
       console.log('Original form data:', submittedFormData);
       console.log('Backend form data:', backendFormData);
-      
+
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -33,13 +34,13 @@ function App() {
         },
         body: JSON.stringify(backendFormData),
       });
-      
+
       console.log('Response status:', response.status);
       console.log('Response ok:', response.ok);
-      
+
       const result = await response.json();
       console.log('Response data:', result);
-      
+
       if (result.success) {
         setTrainingPlan(result.plan);
         setFormData(submittedFormData);
@@ -63,13 +64,13 @@ function App() {
         <h1>Marathon Training Plan Generator</h1>
         <p>Create a personalized training plan for your next race</p>
       </header>
-      
+
       <main className="App-main">
         {!trainingPlan ? (
           <TrainingForm onFormSubmit={handleFormSubmit} initialFormData={formData} />
         ) : (
-          <TrainingPlanDisplay 
-            plan={trainingPlan} 
+          <TrainingPlanDisplay
+            plan={trainingPlan}
             formData={formData}
             onEdit={handleEditPlan}
           />
