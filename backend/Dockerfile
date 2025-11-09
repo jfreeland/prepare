@@ -16,4 +16,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["uv", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "ulimit -n 65536 && uv run uvicorn app.main:app --host 0.0.0.0 --port 8000"]

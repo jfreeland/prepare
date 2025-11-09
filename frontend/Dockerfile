@@ -18,4 +18,4 @@ COPY --from=build /app/build /usr/share/nginx/html
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["sh", "-c", "ulimit -n 65536 && nginx -g 'daemon off;'"]
