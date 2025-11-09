@@ -1,0 +1,267 @@
+.calendar-view {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.calendar-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.calendar-navigation {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-button:hover {
+  background-color: #0056b3;
+}
+
+.current-month {
+  font-weight: 600;
+  color: #333;
+  min-width: 150px;
+  text-align: center;
+}
+
+.calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1px solid #dee2e6;
+}
+
+.calendar-grid {
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: #007bff;
+  color: white;
+}
+
+.weekday-header {
+  padding: 0.75rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-day {
+  min-height: 80px;
+  border: 1px solid #dee2e6;
+  border-top: none;
+  border-left: none;
+  padding: 0.5rem;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.calendar-day:nth-child(7n) {
+  border-right: none;
+}
+
+.calendar-day:hover {
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+.calendar-day.empty {
+  background-color: #f8f9fa;
+  cursor: default;
+}
+
+.calendar-day.empty:hover {
+  background-color: #f8f9fa;
+}
+
+.calendar-day.other-month {
+  background-color: #f8f9fa;
+  color: #6c757d;
+}
+
+.calendar-day.today {
+  border: 2px solid #007bff;
+  border-left: 2px solid #007bff;
+}
+
+.calendar-day.today:nth-child(7n) {
+  border-right: 2px solid #007bff;
+}
+
+.calendar-day.race-day {
+  border: 2px solid #28a745;
+  border-left: 2px solid #28a745;
+}
+
+.calendar-day.race-day:nth-child(7n) {
+  border-right: 2px solid #28a745;
+}
+
+.calendar-day-number {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.today-indicator {
+  color: #007bff;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.calendar-workout {
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+
+.workout-type-small {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.1rem;
+}
+
+.workout-distance-small {
+  color: #666;
+  font-size: 0.65rem;
+}
+
+.race-indicator {
+  font-size: 1rem;
+  margin-top: 0.1rem;
+}
+
+.calendar-summary {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  border-left: 4px solid #007bff;
+}
+
+.calendar-summary p {
+  margin: 0.25rem 0;
+  color: #555;
+}
+
+.calendar-summary strong {
+  color: #333;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .calendar-view {
+    padding: 1rem;
+  }
+  
+  .calendar-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .calendar-legend {
+    justify-content: center;
+  }
+  
+  .calendar-day {
+    min-height: 60px;
+    padding: 0.25rem;
+  }
+  
+  .calendar-day-number {
+    font-size: 0.8rem;
+  }
+  
+  .calendar-workout {
+    font-size: 0.6rem;
+  }
+  
+  .workout-type-small {
+    font-size: 0.65rem;
+  }
+  
+  .workout-distance-small {
+    font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-legend {
+    gap: 0.5rem;
+  }
+  
+  .legend-item {
+    font-size: 0.75rem;
+  }
+  
+  .calendar-day {
+    min-height: 50px;
+  }
+  
+  .weekday-header {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.8rem;
+  }
+  
+  .calendar-summary {
+    font-size: 0.9rem;
+  }
+}
