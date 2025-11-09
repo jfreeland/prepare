@@ -35,17 +35,19 @@ jobs:
         run: |
           pip install uv
 
-      - name: test backend
-        run: |
-          cd backend
-          uv sync
-          uv run python -m pytest
+      # TODO: Re-enable tests once they're added.
+      #- name: test backend
+      #  run: |
+      #    cd backend
+      #    uv sync
+      #    uv run python -m pytest
 
-      - name: test frontend
-        run: |
-          cd frontend
-          npm ci
-          npm run test
+      # TODO: Re-enable tests once they're added.
+      #- name: test frontend
+      #  run: |
+      #    cd frontend
+      #    npm ci
+      #    npm run test
 
       - name: install semantic-release
         run:
