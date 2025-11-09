@@ -1,11 +1,13 @@
+from datetime import date, datetime, timedelta
+from enum import Enum
+from typing import Any, Dict, List, Optional
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List, Optional, Dict, Any
-from datetime import datetime, timedelta, date
-from enum import Enum
 
 
+# TODO: Lots
 class WorkoutType(Enum):
     REST = "Rest"
     EASY_RUN = "Easy Run"
@@ -170,9 +172,6 @@ class TrainingPlanGenerator:
             d.lower() for d in self.form_data["training_days"]
         ] + [self.form_data["long_run_day"].lower()]
         is_training_day = day_name in training_days_with_long_run
-        is_race_day = self._is_race_day(
-            day_name, week_number, WEEK_DAYS.index(day_name)
-        )
 
         if is_race_week:
             # Race week: only easy shakeout runs and rest, no long runs
